@@ -1,0 +1,23 @@
+services:
+  catalogue:
+    build: ./catalogue
+    ports:
+      - 5000:5000
+  recommendation:
+    build: ./recommendation
+    ports:
+      - 8080:8080
+  voting:
+    build: ./voting
+    ports:
+      - 8000:8000
+    depends_on:
+      - "catalogue"
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:3000
+    depends_on:
+      - "catalogue"
+      - "recommendation"
+      - "voting"
